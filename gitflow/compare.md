@@ -1,4 +1,4 @@
-# 对[主流git工作流对比](http://ustory.lofter.com/post/33be15_b506417)的理解。
+# 对 [主流git工作流对比](http://ustory.lofter.com/post/33be15_b506417) 这篇文章的理解。
 
 > 仔细看了下，的确是一种解决方案，不过觉得有点问题，可能你对gitflow的理解有些偏差。
 
