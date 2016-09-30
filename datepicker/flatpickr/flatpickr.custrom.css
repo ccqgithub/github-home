@@ -1,0 +1,76 @@
+.flatpickr-calendar {
+  width: auto;
+  max-width: 400px;
+  box-shadow: 0 2px 6px #ccc;
+}
+.flatpickr-calendar::before,
+.flatpickr-calendar::after {
+  display: none;
+}
+
+.flatpickr-rContainer {
+  max-width: 400px;
+}
+
+.flatpickr-calendar.open {
+  visibility: visible;
+}
+
+.flatpickr-clearfix::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+}
+
+.flatpickr-btm {
+  padding: 5px;
+  text-align: right;
+  border-top: 1px solid #e6e6e6;
+  line-height: 20px;
+}
+
+.flatpickr-time {
+  display: block;
+  margin-right: 60px;
+  line-height: 20px;
+  height: auto;
+}
+
+.flatpickr-sure {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #e6e6e6;
+  color: inherit;
+  cursor: pointer;
+  float: right;
+}
+
+.flatpickr-am-pm,
+.flatpickr-time input[type=number],
+.flatpickr-time-separator {
+  line-height: 20px;
+  height: auto;
+  padding: 5px 0;
+}
+
+.flatpickr-days {
+  width: 300px;
+}
+.flatpickr-days span,
+.flatpickr-weeks span {
+  height: 24px;
+  line-height: 24px;
+  border-radius: 0;
+  width: 40px;
+}
+
+.flatpickr-month {
+  line-height: 34px;
+}
+
+.flatpickr-current-month .cur_month {
+  vertical-align: middle;
+}
