@@ -32,3 +32,27 @@ Number.prototype.div = function (arg){
         return (r1/r2)*pow(10,t2-t1);   
     }   
 }
+
+Number.prototype.toFixed = function(scale)  
+{  
+    var s, s1, s2, start;  
+
+    s1 = this + "";  
+    start = s1.indexOf(".");  
+    s = s1.movePoint(scale);  
+
+    if (start >= 0)  
+    {  
+        s2 = Number(s1.substr(start + scale + 1, 1));  
+        if (s2 >= 5 && this >= 0 || s2 < 5 && this < 0)  
+        {  
+            s = Math.ceil(s);  
+        }  
+        else  
+        {  
+            s = Math.floor(s);  
+        }  
+    }  
+
+    return s.toString().movePoint(-scale);  
+}  
