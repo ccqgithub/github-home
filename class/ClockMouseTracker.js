@@ -1,4 +1,4 @@
-export class ClockTracker {
+export class ClockMouseTracker {
   constructor(opts={}) {
      // 鼠标事件绑定的元素
     this.el = opts.el;
@@ -129,7 +129,7 @@ export function debounce(fn, delay, prepose) {
 
 //     this.status = 'small';
 //     this.$clock = $('#clock');
-//     this.tracker = new ClockTracker({
+//     this.tracker = new ClockMouseTracker({
 //       el: this.$clock[0],
 //       radius: 200,
 //       count: 8,
