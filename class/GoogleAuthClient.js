@@ -1,8 +1,14 @@
 import EventEmitter from 'eventemitter3';
-import config from '../data/config/index';
 
 // https://developers.google.com/identity/protocols/OAuth2UserAgent
 // https://developers.google.com/api-client-library/javascript/start/start-js
+
+const config = {
+  google: {
+    apiKey: 'xxx',
+    clientId: 'xxx',
+  }
+};
 
 export default class GoogleAuthClient {
   constructor() {
