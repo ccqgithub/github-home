@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 class Store {
   state = {};
@@ -38,8 +38,11 @@ class Store {
       let mod = this.modules[arr[0]];
       mod.dispatch(arr.slice(1).join('/'), payload);
     } else {
-      this.actions[arr[0]](payload);
+      this.state = this.actions[arr[0]](payload, this.state);
     }
+    this.observers.forEach((observer) => {
+      observer();
+    });
   }
 
   subscribe(observer) {
@@ -56,7 +59,16 @@ class Store {
   }
 }
 
-const useStore = (store, selector) => {
+const useStore = (store) => {
+  return useCallback(
+    (action, payload) => {
+      store.dispatch(action, payload);
+    },
+    [store]
+  );
+};
+
+const useStoreState = (store, selector) => {
   // component state
   let [state, setState] = useState(() => {
     return selector(store.getState());
@@ -72,12 +84,7 @@ const useStore = (store, selector) => {
     };
   }, [store]);
 
-  return [
-    state,
-    (action, payload) => {
-      store.dispatch(action, payload);
-    }
-  ];
+  return state;
 };
 
-export { Store, useStore };
+export { Store, useStore, useStoreState };
