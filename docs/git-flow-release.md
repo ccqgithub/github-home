@@ -11,7 +11,7 @@
 
 - `dev`： 开发联调环境，能发布到这个环境的分支是`dev`。
 - `test`： 测试环境，能发布到这个环境的分支是`test`。
-- `staging`： 预发布环境，上线前验证，能发布到这个环境的分支是`master`、`relese-<version>[-count]`、`hotfix-<version>`，这个环境应尽可能保持和生产环境一致。
+- `staging`： 预发布环境，上线前验证，能发布到这个环境的分支是`master`、`release-<version>[-count]`、`fix-<version>`，这个环境应尽可能保持和生产环境一致。
 - `prod`：生产环境。
 
 ## 分支规范
