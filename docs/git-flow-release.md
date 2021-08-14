@@ -75,9 +75,9 @@
 
 ## 开发流程：紧急`bug`修复。
 
-- 1. 从 `master` 最新代码拉出分支`fix-<version>`。
-- 2. 将 `fix-<version>` 发布到 `staging环境` 验证测试。
-- 3. 将 `fix-<version>` 合并到 `master`。
-- 4. 将 `master` 发布到 `staging环境` 验证测试。
-- 5. 将 `master` 发布到生产环境，打`tag`。
+1. 从 `master` 最新代码拉出分支`fix-<version>`。
+2. 将 `fix-<version>` 发布到 `staging环境` 验证测试。
+3. 将 `fix-<version>` 合并到 `master`。
+4. 将 `master` 发布到 `staging环境` 验证测试。
+5. 将 `master` 发布到生产环境，打`tag`。
 
