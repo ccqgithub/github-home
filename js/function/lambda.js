@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 const staticFileList = ["/apple-app-site-association"];
 
 const isPageRequest = (uri) => {
@@ -11,13 +13,28 @@ const isPageRequest = (uri) => {
 
 exports.handler = (event, _context, callback) => {
   const request = event.Records[0].cf.request;
+  const headers = request.headers;
   const originalUri = request.uri;
 
   // prerender check
   if (prerender.shouldShowPrerenderedPage(request)) {
-    let originUrl = `${request.protocol}://${request.domainName}${request.uri}`;
-    console.log('prerender full url:', originUrl);
-    request.uri = `https://prerender.switch.site/${originUrl}`;
+    let originUrl = `https://${headers.host[0].value}${request.uri}?${request.querystring}`;
+    const domainName = 'prerender.switch.site';
+    request.origin = {
+      custom: {
+        domainName: domainName,
+        port: 443,
+        protocol: 'https',
+        path: '',
+        sslProtocols: ['TLSv1', 'TLSv1.1', 'TLSv1.2'],
+        readTimeout: 180,
+        keepaliveTimeout: 5,
+        customHeaders: {}
+      }
+    };
+    request.headers['host'] = [{key: 'host', value: domainName}];
+    request.uri = `/${originUrl}`;
+    callback(null, request);
     return;
   }
 
@@ -51,6 +68,7 @@ const prerender = {
   shouldShowPrerenderedPage(req) {
     let userAgent = req.headers['user-agent'] && req.headers['user-agent'].length ? req.headers['user-agent'][0].value : "";
     let isRequestingPrerenderedPage = false;
+    let queryString = req.querystring;
     let url = req.uri;
 
     if(!userAgent) return false;
@@ -58,7 +76,7 @@ const prerender = {
     if(req.headers && req.headers['x-prerender']) return false;
 
     // 测试
-    if (url.includes('_escaped_fragment_')) {
+    if (queryString.includes('_escaped_fragment_')) {
       isRequestingPrerenderedPage = true;
     }
 
@@ -66,7 +84,7 @@ const prerender = {
     if (/\.\w+$/i.test(url)) return false;
 
     // 爬虫
-    if (/"googlebot|bingbot|yandex|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp"/i.test(userAgent)) {
+    if (/googlebot|bingbot|yandex|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|Prerender/i.test(userAgent)) {
       isRequestingPrerenderedPage = true;
     }
 
